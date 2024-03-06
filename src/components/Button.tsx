@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     color: '#1c0140',
     fontSize: 16,
   },
-});
+})
 
 export const Button =
   ({

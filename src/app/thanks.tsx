@@ -1,6 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'expo-status-bar'
 import { EvilIcons } from '@expo/vector-icons'
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { BackgroundImage, VerticalSpacer } from '@/components'
 
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   text: {
     color: 'white'
   }
-});
+})
 
 export default function Page() {
   return (
@@ -45,5 +45,5 @@ export default function Page() {
         </View>
       </SafeAreaView>
     </BackgroundImage>
-  );
+  )
 }
