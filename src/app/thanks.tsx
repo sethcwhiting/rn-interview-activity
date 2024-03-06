@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
+import { EvilIcons } from '@expo/vector-icons'
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { BackgroundImage, VerticalSpacer } from '../components'
-import { EvilIcons } from '@expo/vector-icons'
+import { BackgroundImage, VerticalSpacer } from '@/components'
 
 const styles = StyleSheet.create({
   safeAreaContainer: {

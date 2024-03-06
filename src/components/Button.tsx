@@ -1,6 +1,11 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { GestureResponderEvent } from 'react-native/Libraries/Types/CoreEventTypes'
+import {
+  GestureResponderEvent,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native'
 
 const styles = StyleSheet.create({
   buttonContainer: {
