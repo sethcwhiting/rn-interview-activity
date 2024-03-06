@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { GestureResponderEvent } from 'react-native/Libraries/Types/CoreEventTypes'
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -23,10 +24,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Button = ({ label }: { label: string }) => {
-  return <View style={styles.buttonContainer}>
-    <TouchableOpacity style={styles.button}>
-      <Text style={styles.buttonLabel}>{label}</Text>
-    </TouchableOpacity>
-  </View>
-}
+export const Button =
+  ({
+     label,
+     onPress
+   }: {
+    label: string,
+    onPress: ((event: GestureResponderEvent) => void) | undefined
+  }) => {
+    return <View style={styles.buttonContainer}>
+      <TouchableOpacity style={styles.button} onPress={onPress}>
+        <Text style={styles.buttonLabel}>{label}</Text>
+      </TouchableOpacity>
+    </View>
+  }
