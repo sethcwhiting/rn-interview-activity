@@ -1,6 +1,15 @@
 React Native Interview Activity
 ===============================
 
+Candidate activity instructions
+-------------------------------
+
+The instructions for performing this activity are available 
+[in this document](https://add-link-here).
+
+Using this repository
+---------------------
+
 To run the app, make sure you have XCode and/or Android Studio installed and
 configured and execute one of the following:
 
