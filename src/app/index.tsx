@@ -1,9 +1,8 @@
 import { router } from 'expo-router'
 import { EvilIcons } from '@expo/vector-icons'
-import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { BackgroundImage, Button, VerticalSpacer } from '@/components'
+import { BackgroundImage, PrimaryButton, VerticalSpacer } from '@/components'
 
 const styles = StyleSheet.create({
   safeAreaContainer: {
@@ -17,9 +16,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   icon: {
-    margin: 20,
+    margin: 16,
   },
   text: {
+    fontSize: 16,
     color: 'white'
   }
 })
@@ -31,7 +31,6 @@ export default function Page() {
     >
       <SafeAreaView style={styles.safeAreaContainer}>
         <View style={styles.pageContainer}>
-          <StatusBar style="auto"/>
           <VerticalSpacer/>
           <EvilIcons
             name="user"
@@ -43,7 +42,7 @@ export default function Page() {
             It's time to set your username!
           </Text>
           <VerticalSpacer/>
-          <Button
+          <PrimaryButton
             label="Next"
             onPress={() => router.navigate('/thanks')}
           />

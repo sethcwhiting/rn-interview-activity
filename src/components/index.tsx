@@ -1,3 +1,4 @@
 export { BackgroundImage } from './BackgroundImage'
-export { Button } from './Button'
+export { PrimaryButton } from './PrimaryButton'
+export { ToggleButton } from './ToggleButton'
 export { VerticalSpacer } from './VerticalSpacer'

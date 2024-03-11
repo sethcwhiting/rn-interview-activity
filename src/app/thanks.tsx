@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar'
 import { EvilIcons } from '@expo/vector-icons'
 import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -19,6 +18,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   text: {
+    lineHeight: 24,
     color: 'white'
   }
 })
@@ -30,7 +30,6 @@ export default function Page() {
     >
       <SafeAreaView style={styles.safeAreaContainer}>
         <View style={styles.pageContainer}>
-          <StatusBar style="auto"/>
           <VerticalSpacer/>
           <EvilIcons
             name="check"
@@ -40,6 +39,9 @@ export default function Page() {
           />
           <Text style={styles.text}>
             Thanks!
+          </Text>
+          <Text style={styles.text}>
+            Welcome to the community!
           </Text>
           <VerticalSpacer/>
         </View>
