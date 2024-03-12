@@ -39,11 +39,7 @@ describe('useProfile', () => {
     const apiClient = makeMockApiClient({
       fetchProfile: {
         result: new Promise((resolve) => {
-          resolveFetchProfile = async () => {
-            await act(() => {
-              resolve(profile)
-            })
-          }
+          resolveFetchProfile = async () => resolve(profile)
         })
       }
     })
@@ -56,6 +52,6 @@ describe('useProfile', () => {
       expect(result.current.profile).toBeUndefined()
     })
 
-    await resolveFetchProfile()
+    await act(resolveFetchProfile)
   })
 })
