@@ -28,4 +28,34 @@ describe('useProfile', () => {
       expect(result.current.profile).toEqual(profile)
     })
   });
+
+  it('has isLoaded of false and no profile prior to profile load', async () => {
+    const profile = {
+      name: 'Jane'
+    }
+
+    let resolveFetchProfile = async () => {}
+
+    const apiClient = makeMockApiClient({
+      fetchProfile: {
+        result: new Promise((resolve) => {
+          resolveFetchProfile = async () => {
+            await act(() => {
+              resolve(profile)
+            })
+          }
+        })
+      }
+    })
+    const useProfile = makeUseProfileHook({ apiClient })
+
+    const { result, rerender } = renderHook(() => useProfile())
+
+    await waitFor(() => {
+      expect(result.current.isLoaded).toBeFalsy()
+      expect(result.current.profile).toBeUndefined()
+    })
+
+    await resolveFetchProfile()
+  })
 })

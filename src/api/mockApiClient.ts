@@ -9,6 +9,7 @@ type MockApiClientInvocation = {
 type MockApiEndpointResult<T> =
   | T
   | Promise<T>
+  | (() => Promise<T>)
 
 type MockApiSpecifications = {
   fetchProfile?: {
@@ -29,7 +30,9 @@ export const makeMockApiClient = (
       fetch: async () => {
         invocations.push({ method: 'fetchProfile', args: [] })
 
-        return specifications.fetchProfile?.result || { name: 'Paul' }
+        const result = specifications.fetchProfile?.result
+
+        return result ? result : { name: 'Sam' }
       }
     }
   }

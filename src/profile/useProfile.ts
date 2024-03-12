@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ApiClient } from '@/api'
+import { apiClient, ApiClient } from '@/api'
 import { Profile } from './types'
 
 export const makeUseProfileHook =
@@ -26,3 +26,5 @@ export const makeUseProfileHook =
 
       return state
     }
+
+export const useProfile = makeUseProfileHook({ apiClient })
