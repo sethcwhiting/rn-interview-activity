@@ -1,8 +1,8 @@
 React Native Interview Activity
 ===============================
 
-Candidate activity instructions
--------------------------------
+Problem statement
+-----------------
 
 The instructions for performing this activity are available 
 [in this document](https://docs.google.com/document/d/1BJfwWCRyR1IS7zy3gKKvHdemtADlNZ4Hp3u0Y3QncLs/edit).
