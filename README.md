@@ -5,7 +5,7 @@ Candidate activity instructions
 -------------------------------
 
 The instructions for performing this activity are available 
-[in this document](https://add-link-here).
+[in this document](https://docs.google.com/document/d/1BJfwWCRyR1IS7zy3gKKvHdemtADlNZ4Hp3u0Y3QncLs/edit).
 
 Using this repository
 ---------------------
