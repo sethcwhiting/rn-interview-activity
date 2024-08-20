@@ -3,8 +3,10 @@ import { useState } from 'react';
 import { EvilIcons } from '@expo/vector-icons';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { BackgroundImage, VerticalSpacer, PrimaryButton } from '@/components';
+import { BackgroundImage, VerticalSpacer, PrimaryButton, ToggleButton } from '@/components';
 import React from 'react';
+import { Toggle } from '@/components/ToggleButton';
+import { curateToggleButtonGroup } from '@/utils/curateToggleButtonGroup';
 
 const styles = StyleSheet.create({
     safeAreaContainer: {
@@ -71,10 +73,10 @@ const interestList = [
 
 export default function Page() {
     const [result, setResult] = useState('Placeholder');
-    const [selected, setSelected] = useState([]);
+    const [selected, setSelected] = useState<string[]>([]);
 
-    const handleInterestPress = (interest: string) => {
-        console.log(interest);
+    const handleInterestPress = ({ name, state }: Toggle) => {
+        setSelected((prev) => curateToggleButtonGroup({ name, state, prev, cap: 3 }));
     };
 
     const generateUsername = () => {
@@ -95,9 +97,7 @@ export default function Page() {
                     </View>
                     <View style={styles.interestContainer}>
                         {interestList.map((interest) => (
-                            <Pressable key={interest} onPress={() => handleInterestPress(interest)} style={styles.chip}>
-                                <Text style={styles.text}>{interest}</Text>
-                            </Pressable>
+                            <ToggleButton key={interest} name={interest} label={interest} onToggle={handleInterestPress} />
                         ))}
                     </View>
                     <View style={styles.headingContainer}>

@@ -13,5 +13,5 @@
   "include": [
     "**/*.ts",
     "**/*.tsx"
-  ]
+, "jest.config.js", "jest-setup.ts"  ]
 }
