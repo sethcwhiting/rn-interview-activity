@@ -7,6 +7,7 @@ import { BackgroundImage, VerticalSpacer, PrimaryButton, ToggleButton } from '@/
 import React from 'react';
 import { Toggle } from '@/components/ToggleButton';
 import { curateToggleButtonGroup } from '@/utils/curateToggleButtonGroup';
+import { useInterests } from '@/interests';
 
 const styles = StyleSheet.create({
     safeAreaContainer: {
@@ -53,25 +54,8 @@ const styles = StyleSheet.create({
     },
 });
 
-const interestList = [
-    'Basketball',
-    'Pop',
-    'Painting',
-    'Jazz',
-    'Surfing',
-    'Rock',
-    'Photography',
-    'EDM',
-    'Gaming',
-    'Biking',
-    'Dancing',
-    'Environmentalism',
-    'Camping',
-    'Romance',
-    'Sci-fi',
-];
-
 export default function Page() {
+    const { interests, isLoaded } = useInterests();
     const [result, setResult] = useState('Placeholder');
     const [selected, setSelected] = useState<string[]>([]);
 
@@ -96,9 +80,11 @@ export default function Page() {
                         <Text style={styles.text}>Choose three interests from the list below to create a personalized username</Text>
                     </View>
                     <View style={styles.interestContainer}>
-                        {interestList.map((interest) => (
-                            <ToggleButton key={interest} name={interest} label={interest} onToggle={handleInterestPress} />
-                        ))}
+                        {isLoaded
+                            ? interests.map((interest) => (
+                                  <ToggleButton key={interest} name={interest} label={interest} onToggle={handleInterestPress} />
+                              ))
+                            : null}
                     </View>
                     <View style={styles.headingContainer}>
                         <Text style={styles.text}>Recommended username</Text>
