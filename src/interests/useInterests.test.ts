@@ -1,6 +1,7 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
-import { makeMockApiClient, interestsList } from '@/api'
+import { makeMockApiClient } from '@/api'
 import { makeUseInterestsHook } from './useInterests'
+import { interestsList } from '@/api/utils/generateUsername';
 
 describe('useInterests', () => {
   it('loads interests on mount', async () => {

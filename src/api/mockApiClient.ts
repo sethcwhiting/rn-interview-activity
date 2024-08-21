@@ -1,6 +1,7 @@
 import { Profile } from '@/profile'
 import { Interests } from '@/interests'
 import { ApiClient } from './types'
+import { interestsList } from './utils/generateUsername'
 
 type MockApiClientInvocation = {
   method: string
@@ -22,24 +23,6 @@ type MockApiSpecifications = {
 }
 
 type MockApiClient = ApiClient & { invocations():  MockApiClientInvocation[] }
-
-export const interestsList = [
-  'Basketball',
-  'Pop',
-  'Painting',
-  'Jazz',
-  'Surfing',
-  'Rock',
-  'Photography',
-  'EDM',
-  'Gaming',
-  'Biking',
-  'Dancing',
-  'Environmentalism',
-  'Camping',
-  'Romance',
-  'Sci-fi',
-];
 
 export const makeMockApiClient = (
   specifications: MockApiSpecifications = {}
