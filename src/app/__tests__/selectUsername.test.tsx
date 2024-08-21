@@ -2,12 +2,15 @@ import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react-native';
 import SelectUsernameScreen from '../selectUsername';
 
-describe('SelectUsername screen', () => {
-    beforeEach(() => {
-        render(<SelectUsernameScreen />);
-    });
+const pressToggleButton = async (name: string) => fireEvent.press(screen.getByRole('togglebutton', { name }));
 
-    const pressToggleButton = (name: string) => fireEvent.press(screen.getByRole('togglebutton', { name }));
+describe('SelectUsername screen', () => {
+    beforeEach(async () => {
+        render(<SelectUsernameScreen />);
+
+        const bBallBtn = await screen.findByRole('togglebutton', { name: 'Basketball' });
+        expect(bBallBtn).toBeDefined();
+    });
 
     it('should not allow more than three interests to be selected', () => {
         pressToggleButton('Basketball');
@@ -25,7 +28,6 @@ describe('SelectUsername screen', () => {
         pressToggleButton('Basketball');
         pressToggleButton('Pop');
         pressToggleButton('Painting');
-
         expect(screen.getByRole('togglebutton', { name: 'Jazz' })).toBeDisabled();
     });
 
@@ -42,5 +44,20 @@ describe('SelectUsername screen', () => {
 
         pressToggleButton('Jazz');
         expect(regenerateButton).toBeEnabled();
+    });
+
+    it('should disable "Next" button unless exactly three interests have been selected', () => {
+        const nextButton = screen.getByRole('button', { name: 'Next' });
+        expect(nextButton).toBeDisabled();
+
+        pressToggleButton('Basketball');
+        expect(nextButton).toBeDisabled();
+        pressToggleButton('Pop');
+        expect(nextButton).toBeDisabled();
+        pressToggleButton('Painting');
+        expect(nextButton).toBeEnabled();
+
+        pressToggleButton('Jazz');
+        expect(nextButton).toBeEnabled();
     });
 });

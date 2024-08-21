@@ -67,6 +67,8 @@ export default function Page() {
         console.log('generate');
     };
 
+    const selectedCapReached = isLoaded && selected.length === 3;
+
     return (
         <BackgroundImage source={require('../../assets/background.png')}>
             <SafeAreaView style={styles.safeAreaContainer}>
@@ -82,21 +84,31 @@ export default function Page() {
                     <View style={styles.interestContainer}>
                         {isLoaded
                             ? interests.map((interest) => (
-                                  <ToggleButton key={interest} name={interest} label={interest} onToggle={handleInterestPress} />
+                                  <ToggleButton
+                                      key={interest}
+                                      name={interest}
+                                      label={interest}
+                                      onToggle={handleInterestPress}
+                                      disabled={selectedCapReached && !selected.includes(interest)}
+                                  />
                               ))
                             : null}
                     </View>
                     <View style={styles.headingContainer}>
                         <Text style={styles.text}>Recommended username</Text>
                         <VerticalSpacer />
-                        <Pressable onPress={generateUsername}>
+                        <Pressable
+                            onPress={generateUsername}
+                            accessibilityRole="button"
+                            disabled={!selectedCapReached}
+                            accessibilityState={{ disabled: selectedCapReached }}>
                             <Text style={styles.text}>Regenerate</Text>
                         </Pressable>
                     </View>
                     <View style={{ padding: 40 }}>
                         <Text style={styles.result}>{result}</Text>
                     </View>
-                    <PrimaryButton label="Next" onPress={() => router.navigate('/thanks')} />
+                    <PrimaryButton label="Next" onPress={() => router.navigate('/thanks')} disabled={!selectedCapReached} />
                     <VerticalSpacer />
                 </View>
             </SafeAreaView>

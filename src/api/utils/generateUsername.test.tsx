@@ -1,8 +1,8 @@
 import generateUsername from './generateUsername';
 
 describe('generateUsername utility', () => {
-    it('should throw an error if fewer than three interests are provided', () => {
-        expect(() => generateUsername(['Basketball', 'Pop'])).toThrow('At least three interests are required to generate a username.');
+    it('should throw an error if exactly three interests are not provided', () => {
+        expect(() => generateUsername(['Basketball', 'Pop'])).toThrow('Three interests must be selected to generate a username.');
     });
 
     it('should generate a unique username each time it is called', () => {
