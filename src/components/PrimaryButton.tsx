@@ -33,7 +33,7 @@ export const PrimaryButton = ({
     disabled?: boolean;
 }) => {
     return (
-        <View style={styles.buttonContainer}>
+        <View style={[styles.buttonContainer, disabled && { opacity: 0.5 }]}>
             <TouchableOpacity
                 accessibilityRole="button"
                 style={styles.button}

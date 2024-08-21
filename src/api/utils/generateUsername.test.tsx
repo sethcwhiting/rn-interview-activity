@@ -4,12 +4,10 @@ function generateAllCombinations(interests: string[]): string[] {
     const combinations = [];
     for (let i = 0; i < interests.length; i++) {
         for (let j = 0; j < interests.length; j++) {
-            if (j !== i) {
-                for (let k = 0; k < interests.length; k++) {
-                    if (k !== i && k !== j) {
-                        combinations.push([interests[i], interests[j], interests[k]].join(''));
-                    }
-                }
+            if (j === i) continue;
+            for (let k = 0; k < interests.length; k++) {
+                if (k === i || k === j) continue;
+                combinations.push([interests[i], interests[j], interests[k]].join(''));
             }
         }
     }
@@ -30,11 +28,10 @@ describe('generateUsername', () => {
         expect(wordsInUsername!.every((word) => interests.some((interest) => interestWordBank[interest].includes(word)))).toBeTruthy();
     });
 
-    it('should throw an error if fewer or more than three interests are passed', () => {
-        const errorMessage = 'Three interests must be selected to generate a username.';
-        expect(() => generateUsername(['Photography'], new Set<string>())).toThrow(errorMessage);
-        expect(() => generateUsername(['Photography', 'Dancing'], new Set<string>())).toThrow(errorMessage);
-        expect(() => generateUsername(['Photography', 'Dancing', 'Sci-fi', 'Art'], new Set<string>())).toThrow(errorMessage);
+    it('should return an empty string if fewer or more than three interests are passed', () => {
+        expect(generateUsername(['Photography'], new Set<string>())).toEqual('');
+        expect(generateUsername(['Photography', 'Dancing'], new Set<string>())).toEqual('');
+        expect(generateUsername(['Photography', 'Dancing', 'Sci-fi', 'Art'], new Set<string>())).toEqual('');
     });
 
     it('should generate different usernames with different interests', () => {

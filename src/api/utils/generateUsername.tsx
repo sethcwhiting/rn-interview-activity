@@ -23,7 +23,7 @@ export const interestWordBank: InterestMapping = {
 export const interestsList = Object.keys(interestWordBank);
 
 export const generateUsername = (interests: string[], existingUsernames: Set<string>): string => {
-    if (interests.length !== 3) throw new Error('Three interests must be selected to generate a username.');
+    if (interests.length !== 3) return '';
 
     // Select one word from each interest
     const selectedWords = interests.map((interest) => {

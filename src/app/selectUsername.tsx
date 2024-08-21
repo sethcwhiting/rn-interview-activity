@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { EvilIcons } from '@expo/vector-icons';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,6 +8,7 @@ import React from 'react';
 import { Toggle } from '@/components/ToggleButton';
 import { curateToggleButtonGroup } from '@/utils/curateToggleButtonGroup';
 import { useInterests } from '@/interests';
+import { useUsername } from '@/username';
 
 const styles = StyleSheet.create({
     safeAreaContainer: {
@@ -48,26 +49,30 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: 'white',
     },
-    result: {
-        fontSize: 40,
-        color: 'white',
-    },
 });
 
 export default function Page() {
-    const { interests, isLoaded } = useInterests();
-    const [result, setResult] = useState('Placeholder');
+    const { interests, isLoaded: interestsLoaded } = useInterests();
+    const { username, refresh } = useUsername();
     const [selected, setSelected] = useState<string[]>([]);
 
-    const handleInterestPress = ({ name, state }: Toggle) => {
-        setSelected((prev) => curateToggleButtonGroup({ name, state, prev, cap: 3 }));
+    const handleInterestPress = ({ name, state }: Toggle) => setSelected((prev) => curateToggleButtonGroup({ name, state, prev, cap: 3 }));
+
+    const handleNextPress = async () => {
+        /*
+         * This is where I would save the username to the user record in the database.
+         * I would also save the user's interests to the interest1, interest2, and interest3 columns in alphabetical order.
+         * I explain why in another comment in src/api/mockApiClient.ts
+         */
+        // await updateUserRecord(username, interests);
+        router.navigate({ pathname: '/thanks', params: { username } });
     };
 
-    const generateUsername = () => {
-        console.log('generate');
-    };
+    useEffect(() => {
+        refresh(selected);
+    }, [selected]);
 
-    const selectedCapReached = isLoaded && selected.length === 3;
+    const selectedCapReached = selected.length === 3;
 
     return (
         <BackgroundImage source={require('../../assets/background.png')}>
@@ -82,7 +87,7 @@ export default function Page() {
                         <Text style={styles.text}>Choose three interests from the list below to create a personalized username</Text>
                     </View>
                     <View style={styles.interestContainer}>
-                        {isLoaded
+                        {interestsLoaded
                             ? interests.map((interest) => (
                                   <ToggleButton
                                       key={interest}
@@ -95,20 +100,23 @@ export default function Page() {
                             : null}
                     </View>
                     <View style={styles.headingContainer}>
-                        <Text style={styles.text}>Recommended username</Text>
+                        <Text style={styles.text}>Recommended username:</Text>
                         <VerticalSpacer />
                         <Pressable
-                            onPress={generateUsername}
+                            onPress={() => refresh(selected)}
                             accessibilityRole="button"
                             disabled={!selectedCapReached}
-                            accessibilityState={{ disabled: selectedCapReached }}>
+                            accessibilityState={{ disabled: !selectedCapReached }}
+                            style={{ opacity: username ? 1 : 0.5 }}>
                             <Text style={styles.text}>Regenerate</Text>
                         </Pressable>
                     </View>
-                    <View style={{ padding: 40 }}>
-                        <Text style={styles.result}>{result}</Text>
+                    <View style={{ paddingVertical: 40, height: 125 }} testID="username">
+                        <Text style={styles.headingText} numberOfLines={1}>
+                            {username}
+                        </Text>
                     </View>
-                    <PrimaryButton label="Next" onPress={() => router.navigate('/thanks')} disabled={!selectedCapReached} />
+                    <PrimaryButton label="Next" onPress={handleNextPress} disabled={!selectedCapReached} />
                     <VerticalSpacer />
                 </View>
             </SafeAreaView>

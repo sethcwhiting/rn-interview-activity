@@ -1,6 +1,7 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react-native';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react-native';
 import SelectUsernameScreen from '../selectUsername';
+import { useUsername } from '@/username';
 
 const pressToggleButton = async (name: string) => fireEvent.press(screen.getByRole('togglebutton', { name }));
 
@@ -31,7 +32,7 @@ describe('SelectUsername screen', () => {
         expect(screen.getByRole('togglebutton', { name: 'Jazz' })).toBeDisabled();
     });
 
-    it('should disable "Regenerate" button unless exactly three interests have been selected', () => {
+    it('should disable "Regenerate" button unless exactly three interests have been selected', async () => {
         const regenerateButton = screen.getByRole('button', { name: 'Regenerate' });
         expect(regenerateButton).toBeDisabled();
 
@@ -40,13 +41,13 @@ describe('SelectUsername screen', () => {
         pressToggleButton('Pop');
         expect(regenerateButton).toBeDisabled();
         pressToggleButton('Painting');
-        expect(regenerateButton).toBeEnabled();
 
+        expect(regenerateButton).toBeEnabled();
         pressToggleButton('Jazz');
         expect(regenerateButton).toBeEnabled();
     });
 
-    it('should disable "Next" button unless exactly three interests have been selected', () => {
+    it('should disable "Next" button unless exactly three interests have been selected', async () => {
         const nextButton = screen.getByRole('button', { name: 'Next' });
         expect(nextButton).toBeDisabled();
 
@@ -55,8 +56,8 @@ describe('SelectUsername screen', () => {
         pressToggleButton('Pop');
         expect(nextButton).toBeDisabled();
         pressToggleButton('Painting');
-        expect(nextButton).toBeEnabled();
 
+        expect(nextButton).toBeEnabled();
         pressToggleButton('Jazz');
         expect(nextButton).toBeEnabled();
     });
